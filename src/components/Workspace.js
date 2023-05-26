@@ -41,7 +41,7 @@ export default function Workspace() {
 
     const formula1 = 'H_{out} = \\text{floor}\\left(\\frac{{H_{in} + 2 \\times \\text{padding}[0] - \\text{dilation}[0] \\times (\\text{kernel}[0] - 1) - 1}}{{\\text{stride}[0]}} + 1\\right)';
 
-    const formula2 = 'H_{out} = \\text{floor}\\left(\\frac{{H_{in} + 2 \\times \\text{padding}[1] - \\text{dilation}[1] \\times (\\text{kernel}[1] - 1) - 1}}{{\\text{stride}[1]}} + 1\\right)';
+    const formula2 = 'W_{out} = \\text{floor}\\left(\\frac{{W_{in} + 2 \\times \\text{padding}[1] - \\text{dilation}[1] \\times (\\text{kernel}[1] - 1) - 1}}{{\\text{stride}[1]}} + 1\\right)';
 
 
 
@@ -60,7 +60,7 @@ export default function Workspace() {
         })
 
 
-    }, [parameters, inputShape, kernelShape])
+    }, [parameters, inputShape, kernelShape, outputShape])
 
 
 
