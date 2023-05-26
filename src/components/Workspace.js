@@ -47,7 +47,7 @@ export default function Workspace() {
 
     useEffect(() => {
 
-        console.log(inputShape);
+        // console.log(inputShape);
 
         const height = Math.floor(((+inputShape['height'] + 2 * parameters['padding'] - parameters['dilation'] * (kernelShape['height'] - 1) - 1) / parameters['stride']) + 1);
 
