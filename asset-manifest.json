@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Conv-Calc/static/css/main.d37da9e2.css",
-    "main.js": "/Conv-Calc/static/js/main.5eb897bc.js",
+    "main.js": "/Conv-Calc/static/js/main.4b4b107e.js",
     "static/js/787.1e80e0c5.chunk.js": "/Conv-Calc/static/js/787.1e80e0c5.chunk.js",
     "index.html": "/Conv-Calc/index.html",
     "main.d37da9e2.css.map": "/Conv-Calc/static/css/main.d37da9e2.css.map",
-    "main.5eb897bc.js.map": "/Conv-Calc/static/js/main.5eb897bc.js.map",
+    "main.4b4b107e.js.map": "/Conv-Calc/static/js/main.4b4b107e.js.map",
     "787.1e80e0c5.chunk.js.map": "/Conv-Calc/static/js/787.1e80e0c5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d37da9e2.css",
-    "static/js/main.5eb897bc.js"
+    "static/js/main.4b4b107e.js"
   ]
 }
