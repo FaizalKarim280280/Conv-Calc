@@ -207,6 +207,10 @@ export default function Workspace() {
 
             </div >
 
+            <div className='mt-4'>
+                No of Parameters: <span className='badge badge-primary rounded'>32</span>
+            </div>
+
             <hr />
 
             <div className='my-5'>
