@@ -2,16 +2,19 @@ import React, { useEffect } from 'react'
 import TextField from '@mui/material/TextField'
 import { useState } from 'react';
 import { MathComponent } from "mathjax-react";
-import { Slider, Typography } from '@mui/material';
+import { Slider, Typography, FormControlLabel, Checkbox, Box, Link } from '@mui/material';
 
-export default function Workspace() {
+export default function ConvTranspose2d() {
 
     const [inputShape, setInputShape] = useState({ 'channels': 3, 'height': 224, 'width': 224 });
     const [kernelShape, setKernelShape] = useState({ 'height': 3, 'width': 3 });
     const [outputShape, setOuputShape] = useState({ 'channels': 128, 'height': 224, 'width': 224 });
     const [parameters, setParameters] = useState({
-        'stride': 2, 'padding': 0, 'dilation': 1
+        'stride': 2, 'padding': 0, 'dilation': 1, 'output_padding': 0
     })
+
+    const [totalParameters, setTotalParameters] = useState(0);
+    const [bias, setBias] = useState(true);
 
     const handleOutputChannelOnChange = (event) => {
         const { name, value } = event.target;
@@ -26,7 +29,11 @@ export default function Workspace() {
 
     const handleInputOnChange = (event) => {
         const { name, value } = event.target;
-        setInputShape(prev => ({ ...prev, [name]: value }));
+        if (name === "height") {
+            setInputShape({ "channels": inputShape['channels'], "height": value, "width": value })
+        } else {
+            setInputShape(prev => ({ ...prev, [name]: value }));
+        }
 
     }
 
@@ -39,19 +46,21 @@ export default function Workspace() {
         }
     }
 
-    const formula1 = 'H_{out} = \\text{floor}\\left(\\frac{{H_{in} + 2 \\times \\text{padding}[0] - \\text{dilation}[0] \\times (\\text{kernel}[0] - 1) - 1}}{{\\text{stride}[0]}} + 1\\right)';
+    const handleBiasOnChange = () => {
+        setBias(!bias);
+    }
 
-    const formula2 = 'W_{out} = \\text{floor}\\left(\\frac{{W_{in} + 2 \\times \\text{padding}[1] - \\text{dilation}[1] \\times (\\text{kernel}[1] - 1) - 1}}{{\\text{stride}[1]}} + 1\\right)';
+    const formula1 = "H_{out} = (H_{in} - 1) \\times \\text{stride}[0] - 2 \\times \\text{padding}[0] + \\text{dilation}[0] \\times (\\text{kernel}[0] - 1) + \\text{output_padding}[0] + 1";
 
+
+    const formula2 = "W_{out} = (W_{in} - 1) \\times \\text{stride}[1] - 2 \\times \\text{padding}[1] + \\text{dilation}[1] \\times (\\text{kernel}[1] - 1) + \\text{output_padding}[1] + 1";
 
 
     useEffect(() => {
 
-        // console.log(inputShape);
+        const height = (+inputShape['height'] - 1) * parameters['stride'] - 2 * parameters['padding'] + parameters['dilation'] * (kernelShape['height'] - 1) + parameters['output_padding'] + 1;
 
-        const height = Math.floor(((+inputShape['height'] + 2 * parameters['padding'] - parameters['dilation'] * (kernelShape['height'] - 1) - 1) / parameters['stride']) + 1);
-
-        const width = Math.floor(((+inputShape['width'] + 2 * parameters['padding'] - parameters['dilation'] * (kernelShape['width'] - 1) - 1) / parameters['stride']) + 1);
+        const width = (+inputShape['width'] - 1) * parameters['stride'] - 2 * parameters['padding'] + parameters['dilation'] * (kernelShape['width'] - 1) + parameters['output_padding'] + 1;
 
         setOuputShape({
             'channels': outputShape['channels'],
@@ -59,42 +68,71 @@ export default function Workspace() {
             'width': width
         })
 
+        const p = +(kernelShape['height'] * kernelShape['width'] * inputShape['channels'] * outputShape['channels'])
+            + (bias ? +outputShape['channels'] : 0);
 
-    }, [parameters, inputShape, kernelShape, outputShape])
+        setTotalParameters(p);
 
 
+    }, [parameters, inputShape, kernelShape, outputShape, bias])
 
     return (
-
         <>
 
-            <div className='row gx-5 p-4 mt-5'>
+            <div className='p-4 mt-3'>
+                <h2 className='display-6'>Conv Transpose 2D</h2>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'evenly',
+                        typography: 'body1',
+                        '& > :not(style) + :not(style)': {
+                            ml: 2,
+                        },
+                    }}>
 
-                <div className="col-md-2">
+                    <Link href="https://pytorch.org/docs/stable/generated/torch.nn.ConvTranspose2d.html?highlight=transpose+conv2d" underline="hover" target='_blank_'>[PyTorch]</Link>
+
+                    <Link href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/Conv2DTranspose" underline="hover" target='_blank_'>[TensorFlow]</Link>
+                </Box>
+
+            </div>
+
+            <div className='row gx-5 p-4 mt-3'>
+
+                {/* <p className='fw-bold'>Parameters</p> */}
+                <div className="col-md-2 ms-2">
 
                     <Typography gutterBottom>Stride : {parameters['stride']}</Typography>
                     <Slider value={parameters['stride']} aria-label="Default" valueLabelDisplay="auto" min={1} max={10} name="stride" onChange={handleParametersOnChange} />
                 </div>
 
 
-                <div className="col-md-2 ms-3">
+                <div className="col-md-2 ms-2">
 
                     <Typography gutterBottom>Padding : {parameters['padding']}</Typography>
                     <Slider value={parameters['padding']} aria-label="Default" valueLabelDisplay="auto" min={0} max={10} onChange={handleParametersOnChange} name="padding" />
                 </div>
 
 
-                <div className="col-md-2 ms-3">
+                <div className="col-md-2 ms-2">
 
                     <Typography gutterBottom>Dilation : {parameters['dilation']}</Typography>
                     <Slider value={parameters['dilation']} aria-label="Default" valueLabelDisplay="auto" min={1} max={5} onChange={handleParametersOnChange} name="dilation" />
+                </div>
+
+                <div className="col-md-2 ms-2">
+
+                    <Typography gutterBottom>Output Padding : {parameters['output_padding']}</Typography>
+                    <Slider value={parameters['output_padding']} aria-label="Default" valueLabelDisplay="auto" min={0} max={10} onChange={handleParametersOnChange} name="output_padding" />
                 </div>
 
 
                 <div className="col-md-3 ms-3">
 
                     <Typography gutterBottom>Out Channels : <span className='red-text'>{outputShape['channels']}</span></Typography>
-                    <Slider value={outputShape['channels']} aria-label="Default" valueLabelDisplay="auto" min={1} max={1024} onChange={handleOutputChannelOnChange} name="channels" />
+                    <Slider value={outputShape['channels']} aria-label="Default" valueLabelDisplay="auto" min={1} max={512} onChange={handleOutputChannelOnChange} name="channels" />
                 </div>
 
             </div>
@@ -139,7 +177,7 @@ export default function Workspace() {
                 <div className='d-flex align-items-center' style={{ "width": "1%" }}>
 
                     <p className='display-6 fw-bold'>
-                        <i className="fa-sharp fa-solid fa-star-of-life fa-sm"></i>
+                        <i class="fa-regular fa-circle-xmark fa-sm"></i>
                     </p>
 
                 </div>
@@ -188,11 +226,10 @@ export default function Workspace() {
                             <TextField className='my-3' id="outlined-basic" label="Channels" variant="outlined" size="small" type='number' style={{ "width": "60%" }} name="channels" value={outputShape['channels']} onChange={handleOutputChannelOnChange} />
 
 
-                            <TextField className='my-3' id="outlined-basic" label="Height" variant="outlined" size="small" type='number' style={{ "width": "60%" }} name="height" value={outputShape['height']} />
+                            <TextField className='my-3' id="outlined-basic" label="Height" variant="outlined" size="small" type='number' style={{ "width": "60%" }} name="height" value={outputShape['height']} disabled />
 
 
-                            <TextField className='my-3' id="outlined-basic" label="Width" variant="outlined" size="small" type='number'
-                                style={{ "width": "60%" }} name="width" value={outputShape['width']} />
+                            <TextField className='my-3' id="outlined-basic" label="Width" variant="outlined" size="small" type='number' style={{ "width": "60%" }} name="width" value={outputShape['width']} disabled />
 
                         </div>
 
@@ -208,7 +245,8 @@ export default function Workspace() {
             </div >
 
             <div className='mt-4'>
-                No of Parameters: <span className='badge badge-primary rounded'>32</span>
+                No of Parameters: <span className='badge badge-primary rounded-4 fs-5'>{totalParameters}</span>
+                <FormControlLabel className="ms-3" control={<Checkbox checked={bias} onChange={handleBiasOnChange} />} label="Include Bias?" />
             </div>
 
             <hr />
@@ -219,6 +257,8 @@ export default function Workspace() {
                 <MathComponent tex={formula2} />
 
             </div>
+
+
 
         </>
     )
