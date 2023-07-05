@@ -25,9 +25,10 @@ code {
 }
 
 .gradient-1 {
-    background: rgb(255,107,81);
-    background: -moz-linear-gradient(90deg, rgba(255,107,81,1) 5%, rgba(252,213,227,1) 50%, rgba(126,87,176,1) 95%);
-    background: -webkit-linear-gradient(90deg, rgba(255,107,81,1) 5%, rgba(252,213,227,1) 50%, rgba(126,87,176,1) 95%);
-    background: linear-gradient(90deg, rgba(255,107,81,1) 5%, rgba(252,213,227,1) 50%, rgba(126,87,176,1) 95%);
+    background: rgb(226, 206, 255);
+    /*background: -moz-linear-gradient(90deg, rgb(255, 255, 255) 5%, rgba(252,213,227,1) 50%, rgba(126,87,176,1) 95%);*/
+    /*background: -webkit-linear-gradient(90deg, rgba(255,107,81,1) 5%, rgba(252,213,227,1) 50%, rgba(126,87,176,1) 95%);*/
+    background: linear-gradient(90deg, rgb(255, 150, 150) 5%, rgb(255, 192, 224) 50%, rgb(182, 134, 243) 95%);
+    /*background: #7e57b0;*/
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6b51",endColorstr="#7e57b0",GradientType=1);
 }

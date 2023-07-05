@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# Introducing Conv-Calc
+<hr>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Conv-Calc is an interactive web application designed to help users understand and visualize the output shape of various types of convolutions commonly used in deep learning models. With this tool, users can easily experiment with different input shapes, kernel sizes, strides, and other parameters to obtain immediate results on the output shape.
 
-## Available Scripts
+## Features </h2>
 
-In the project directory, you can run:
+1. Convolution Types: The app supports three types of convolutions:
 
-### `npm start`
+    * 1D Convolution: Calculates the output shape for a 1D convolution operation.
+    * 2D Convolution: Provides the output shape for a 2D convolution operation.
+    * Transpose Convolution: Generates the output shape for a transpose convolution (deconvolution) operation.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. Dynamic Parameter Adjustment: Users can fine-tune various parameters such as input shape, kernel size, stride, padding, dilation, and more. Simply modify these parameters and instantly see the resulting output shape.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. Parameter Count: The app also provides the number of parameters involved in the convolution operation. This information can be useful for estimating model complexity and memory requirements.
 
-### `npm test`
+## Uses and Benefits
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Education and Learning**: The Convolution Shape Calculator serves as a valuable educational resource for students, researchers, and practitioners in the field of deep learning. It helps users understand how different convolutional operations affect the input shape and gain insights into their impact on model architecture and design.
 
-### `npm run build`
+2. **Model Design and Debugging**: The app aids in designing and debugging convolutional neural network (CNN) architectures by allowing users to experiment with different settings and observe the resulting output shapes. This can help identify issues related to shape compatibility and enable efficient model prototyping.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Optimization and Parameter Estimation**: By providing the number of parameters involved in the convolution operations, the app helps users estimate the computational complexity and memory requirements of their models. This information is crucial for optimizing and fine-tuning deep learning models for specific hardware or memory constraints.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. **Research and Development**: Researchers and developers can leverage the Convolution Shape Calculator to explore the effects of varying convolutional parameters on output shapes. It facilitates experimentation and empowers users to make informed decisions during model development and experimentation.

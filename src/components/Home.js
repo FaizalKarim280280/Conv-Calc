@@ -23,7 +23,7 @@ export default function Home() {
                     <h5 className='fw-normal'>Making Sense of Shape Chaos</h5>
                     <hr />
 
-                    <div className='border py-1 rounded-4 gradient-1 shadow-4'>
+                    <div className='py-1 rounded-4 gradient-1 shadow-5'>
 
                         <Tabs value={value} onChange={handleChange} centered>
                             <Tab label="Conv 1d" value={"conv1d"} sx={{ mx: 1}} />
